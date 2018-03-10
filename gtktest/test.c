@@ -72,6 +72,20 @@ void add_objectmenu()
     // gtk_main();
  
 }
+
+void file_selected(GtkFileChooser *file_btn)
+{
+    gchar *file_name;
+    GtkBuilder  *builder;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    gtk_builder_connect_signals(builder, NULL);
+    file_name = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(file_btn));
+    g_object_unref(builder); 
+    printf("%s\n", (char*)file_name);
+}
+
 // // gtk_widget_action()
 
 // //widget = widget sur lequel on travaill. ext : window
