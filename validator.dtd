@@ -1,0 +1,135 @@
+<!ELEMENT scene (camera, lights, objects)>
+<!ATTLIST scene
+			render CDATA #IMPLIED
+			global_refract CDATA #IMPLIED
+			filtre CDATA #IMPLIED>
+
+<!--CAMERA-->
+
+<!ELEMENT camera (origin, orientation, amb_i)>
+<!ELEMENT origin EMPTY>
+<!ATTLIST origin
+		x CDATA #REQUIRED
+		y CDATA #REQUIRED
+		z CDATA #REQUIRED
+		w CDATA #REQUIRED>
+<!ELEMENT orientation EMPTY>
+<!ATTLIST orientation
+		x CDATA #REQUIRED
+		y CDATA #REQUIRED
+		z CDATA #REQUIRED
+		w CDATA #REQUIRED>
+<!ELEMENT amb_i EMPTY>
+<!ATTLIST amb_i
+		r CDATA #REQUIRED
+		g CDATA #REQUIRED
+		b CDATA #REQUIRED>
+
+
+<!--MATH-->
+
+<!ELEMENT range EMPTY>
+<!ATTLIST range nb CDATA #REQUIRED>
+
+<!ELEMENT radius EMPTY>
+<!ATTLIST radius nb CDATA #REQUIRED>
+
+<!ELEMENT shininess EMPTY>
+<!ATTLIST shininess nb CDATA #REQUIRED>
+
+<!ELEMENT model EMPTY>
+<!ATTLIST model model CDATA #REQUIRED>
+
+<!ELEMENT angle EMPTY>
+<!ATTLIST angle nb CDATA #REQUIRED>
+
+<!ELEMENT p EMPTY>
+<!ATTLIST p
+		x CDATA #REQUIRED
+		y CDATA #REQUIRED
+		z CDATA #REQUIRED
+		w CDATA #REQUIRED>
+<!ELEMENT dir EMPTY>
+<!ATTLIST dir
+		x CDATA #REQUIRED
+		y CDATA #REQUIRED
+		z CDATA #REQUIRED
+		w CDATA #REQUIRED>
+<!ELEMENT normal EMPTY>
+<!ATTLIST normal
+		x CDATA #REQUIRED
+		y CDATA #REQUIRED
+		z CDATA #REQUIRED
+		w CDATA #REQUIRED>
+<!ELEMENT center EMPTY>
+<!ATTLIST center
+		x CDATA #REQUIRED
+		y CDATA #REQUIRED
+		z CDATA #REQUIRED
+		w CDATA #REQUIRED>
+<!ELEMENT spec EMPTY>
+<!ATTLIST spec
+		r CDATA #REQUIRED
+		g CDATA #REQUIRED
+		b CDATA #REQUIRED>
+<!ELEMENT diffuse EMPTY>
+<!ATTLIST diffuse
+		r CDATA #REQUIRED
+		g CDATA #REQUIRED
+		b CDATA #REQUIRED>
+<!ELEMENT amb EMPTY>
+<!ATTLIST amb
+		r CDATA #REQUIRED
+		g CDATA #REQUIRED
+		b CDATA #REQUIRED>
+
+<!ELEMENT refract EMPTY>
+<!ATTLIST refract nb CDATA #REQUIRED>
+<!ELEMENT reflect EMPTY>
+<!ATTLIST reflect nb CDATA #REQUIRED>
+<!ELEMENT opacity EMPTY>
+<!ATTLIST opacity nb CDATA #REQUIRED>
+<!ELEMENT texture EMPTY>
+<!ATTLIST texture texture CDATA #REQUIRED>
+<!ELEMENT text_angle EMPTY>
+<!ATTLIST text_angle nb CDATA #REQUIRED>
+<!ELEMENT text_scale EMPTY>
+<!ATTLIST text_scale nb CDATA #REQUIRED>
+
+<!ELEMENT bump_text EMPTY>
+<!ATTLIST bump_text bump_text CDATA #REQUIRED>
+<!ELEMENT bump_angle EMPTY>
+<!ATTLIST bump_angle nb CDATA #REQUIRED>
+<!ELEMENT bump_scale EMPTY>
+<!ATTLIST bump_scale nb CDATA #REQUIRED>
+<!ELEMENT absorb EMPTY>
+<!ATTLIST absorb 
+			r CDATA #REQUIRED
+			g CDATA #REQUIRED
+			b CDATA #REQUIRED>
+
+<!--LIGHTS-->
+
+<!ELEMENT lights (light+)>
+<!ELEMENT light (type, vec, diffuse, spec, range, atten)>
+<!ELEMENT type EMPTY>
+<!ATTLIST type type CDATA #REQUIRED>
+<!ELEMENT vec EMPTY>
+<!ATTLIST vec
+		x CDATA #REQUIRED
+		y CDATA #REQUIRED
+		z CDATA #REQUIRED
+		w CDATA #REQUIRED>
+<!ELEMENT atten EMPTY>
+<!ATTLIST atten
+		r CDATA #REQUIRED
+		g CDATA #REQUIRED
+		b CDATA #REQUIRED>
+
+<!--OBJECTS-->
+
+<!ELEMENT objects (plane | cone | cylindre | sphere)+>
+<!ELEMENT plane (p, normal, model, amb, spec, diffuse, shininess, refract, reflect, opacity, texture, text_angle, text_scale, bump_text, bump_angle, bump_scale, absorb)>
+<!ELEMENT sphere (radius, center, model,amb, spec, diffuse, shininess, refract, reflect, opacity, bump_text, bump_angle, bump_scale, absorb)>
+<!ELEMENT cylindre (p, dir, radius, model, amb, spec, diffuse, shininess, refract, reflect, opacity, bump_text, bump_angle, bump_scale, absorb)>
+<!ELEMENT cone (p, dir, angle, model, amb, spec, diffuse, shininess, refract, reflect, opacity, bump_text, bump_angle, bump_scale, absorb)>
