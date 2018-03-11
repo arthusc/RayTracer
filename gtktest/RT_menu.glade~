@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.3 -->
+<!-- Generated with glade 3.20.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="main_menu">
@@ -72,8 +72,10 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Object</property>
     <property name="modal">True</property>
+    <property name="window_position">mouse</property>
     <property name="default_width">200</property>
     <property name="default_height">200</property>
+    <property name="type_hint">menu</property>
     <child>
       <object class="GtkComboBoxText">
         <property name="visible">True</property>
@@ -88,8 +90,10 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Scene</property>
     <property name="modal">True</property>
-    <property name="default_width">200</property>
+    <property name="window_position">mouse</property>
+    <property name="default_width">500</property>
     <property name="default_height">200</property>
+    <property name="type_hint">menu</property>
     <child>
       <object class="GtkGrid">
         <property name="visible">True</property>
@@ -97,8 +101,35 @@
         <property name="row_homogeneous">True</property>
         <property name="column_homogeneous">True</property>
         <child>
-          <object class="GtkButton" id="start_rt_button">
-            <property name="label" translatable="yes">Start</property>
+          <object class="GtkFileChooserButton" id="file_btn">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="title" translatable="yes"/>
+            <signal name="file-set" handler="file_selected" swapped="no"/>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">CHOOSE A FILE</property>
+            <property name="yalign">1</property>
+            <attributes>
+              <attribute name="font-desc" value="American Typewriter weight=237 14"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="label" translatable="yes">Start RT</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
@@ -109,16 +140,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkFileChooserButton">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="title" translatable="yes"/>
-            <signal name="file-set" handler="file_selected" swapped="no"/>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">0</property>
-          </packing>
+          <placeholder/>
         </child>
       </object>
     </child>
@@ -142,15 +164,16 @@
         <property name="baseline_position">top</property>
         <child>
           <object class="GtkGrid">
-            <property name="height_request">188</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_bottom">111</property>
+            <property name="row_homogeneous">True</property>
             <property name="column_homogeneous">True</property>
             <child>
-              <object class="GtkEntry">
+              <object class="GtkEntry" id="uiw_height">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="text" translatable="yes">(height)</property>
+                <signal name="activate" handler="wheight_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -158,9 +181,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry">
+              <object class="GtkEntry" id="uiw_width">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="text" translatable="yes">(width)</property>
+                <signal name="activate" handler="wwidth_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -168,9 +193,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry">
+              <object class="GtkEntry" id="uipxl_val">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="text" translatable="yes">(between 0 and 36)</property>
+                <signal name="activate" handler="pxlval_changed" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -181,7 +208,10 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Window Height</property>
+                <property name="label" translatable="yes">WINDOW :</property>
+                <attributes>
+                  <attribute name="font-desc" value="American Typewriter weight=237 Condensed 16"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -192,7 +222,11 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Window Width</property>
+                <property name="label" translatable="yes">(press Enter after typing)</property>
+                <attributes>
+                  <attribute name="font-desc" value="Al Bayan Bold Italic 10"/>
+                  <attribute name="foreground" value="#cccc00000000"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -203,7 +237,10 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Pixelisation (o -&gt; 36)</property>
+                <property name="label" translatable="yes">PIXILATION</property>
+                <attributes>
+                  <attribute name="font-desc" value="American Typewriter weight=237 Condensed 16"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -219,16 +256,18 @@
         </child>
         <child>
           <object class="GtkButton" id="appliquer_settings">
-            <property name="label" translatable="yes">Appliquer</property>
+            <property name="label" translatable="yes">Apply</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
+            <property name="can_focus">False</property>
             <property name="receives_default">True</property>
-            <property name="relief">half</property>
+            <property name="vexpand">True</property>
+            <property name="relief">none</property>
+            <signal name="clicked" handler="apply_settings" swapped="no"/>
           </object>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">5</property>
           </packing>
         </child>
       </object>

@@ -133,6 +133,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <signal name="clicked" handler="uistart_rt" swapped="no"/>
           </object>
           <packing>
             <property name="left_attach">0</property>

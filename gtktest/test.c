@@ -1,11 +1,13 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
+#include "uitest.h"
+#include <string.h>
 
 int main(int argc,char **argv)
 {
 	GtkBuilder      *builder; 
     GtkWidget       *window;
- 
+
     gtk_init(&argc, &argv);
  
     builder = gtk_builder_new();
@@ -73,7 +75,7 @@ void add_objectmenu()
  
 }
 
-void file_selected(GtkFileChooser *file_btn)
+gchar *file_selected(GtkFileChooser *file_btn)
 {
     gchar *file_name;
     GtkBuilder  *builder;
@@ -84,8 +86,75 @@ void file_selected(GtkFileChooser *file_btn)
     file_name = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(file_btn));
     g_object_unref(builder); 
     printf("%s\n", (char*)file_name);
+    return (file_name);
 }
 
+void    uistart_rt()
+{
+    system(rt_andscene);
+}
+
+void    wheight_changed(GtkEntry *uiw_height)
+{
+    GtkBuilder  *builder;
+    const gchar *wheight;
+    t_uitest uitest;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    gtk_builder_connect_signals(builder, "uiw_height");
+    wheight = gtk_entry_get_text(GTK_ENTRY(uiw_height));
+    uitest.hauteur = atoi(wheight);
+    printf("%s\n", wheight);
+    printf("%d\n", uitest.hauteur);
+    g_object_unref(builder); 
+}
+
+void wwidth_changed(GtkEntry *uiw_width)
+{
+    GtkBuilder  *builder;
+    const gchar *wwidth;
+    t_uitest uitest;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    gtk_builder_connect_signals(builder, "uiw_width");
+    wwidth = gtk_entry_get_text(GTK_ENTRY(uiw_width));
+    uitest.largeur = atoi(wwidth);
+    printf("%s\n", wwidth);
+    printf("%d\n", uitest.largeur);
+    g_object_unref(builder); 
+}
+
+void pxlval_changed(GtkEntry *uipxl_val)
+{
+    GtkBuilder  *builder;
+    const gchar *pxlval;
+    t_uitest uitest;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    gtk_builder_connect_signals(builder, "uipxl_val");
+    pxlval = gtk_entry_get_text(GTK_ENTRY(uipxl_val));
+    uitest.pixilation = atoi(pxlval);
+    printf("%s\n", pxlval);
+    printf("%d\n", uitest.pixilation);
+    g_object_unref(builder); 
+}
+
+void apply_settings(t_uitest *uitest)
+{
+    GtkBuilder  *builder;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    gtk_builder_connect_signals(builder, "appliquer_settings");
+    uitest->hauteur = 
+    printf("%d\n", uitest->hauteur);
+    // printf("%d\n", uitest.largeur);
+    // printf("%d\n", uitest.pixilation);
+    g_object_unref(builder);    
+}
 // // gtk_widget_action()
 
 // //widget = widget sur lequel on travaill. ext : window
