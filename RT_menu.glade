@@ -48,13 +48,13 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="object_button">
-            <property name="label" translatable="yes">Object</property>
+          <object class="GtkButton" id="start_button">
+            <property name="label" translatable="yes">Start</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="border_width">5</property>
-            <signal name="clicked" handler="add_objectmenu" swapped="no"/>
+            <signal name="clicked" handler="mainsuite" swapped="no"/>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -62,24 +62,6 @@
             <property name="position">2</property>
           </packing>
         </child>
-      </object>
-    </child>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
-  </object>
-  <object class="GtkWindow" id="object_menu">
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Object</property>
-    <property name="modal">True</property>
-    <property name="window_position">mouse</property>
-    <property name="default_width">200</property>
-    <property name="default_height">200</property>
-    <property name="type_hint">menu</property>
-    <child>
-      <object class="GtkComboBoxText">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
       </object>
     </child>
     <child type="titlebar">
@@ -116,8 +98,8 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">CHOOSE A FILE</property>
-            <property name="yalign">1</property>
+            <property name="label" translatable="yes">CHOOSE A FILE
+(it will launch automatically)</property>
             <attributes>
               <attribute name="font-desc" value="American Typewriter weight=237 14"/>
             </attributes>
@@ -126,21 +108,6 @@
             <property name="left_attach">1</property>
             <property name="top_attach">0</property>
           </packing>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="label" translatable="yes">Start RT</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
         </child>
       </object>
     </child>

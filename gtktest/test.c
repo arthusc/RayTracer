@@ -89,10 +89,10 @@ gchar *file_selected(GtkFileChooser *file_btn)
     return (file_name);
 }
 
-void    uistart_rt()
-{
-    system(rt_andscene);
-}
+// void    uistart_rt()
+// {
+//     system(rt_andscene);
+// }
 
 void    wheight_changed(GtkEntry *uiw_height)
 {

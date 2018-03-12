@@ -23,12 +23,22 @@ LIB_FLAGS = -L./libft
 LIBS = -lft -lmlx -lXext -lX11 -lm -lxml2 -lpthread
 else
 INC_FLAGS = -I./includes/osx -I./libft/includes -I./includes/libxml \
-			-I./includes -I./minilibx_macos
+			-I./includes -I./minilibx_macos $(LIB_GTK_H)
 LIB_FLAGS = -L./libft -L./minilibx_macos
 LIBS = -lft -lmlx -lm -framework OpenGL -framework Appkit \
 		-lxml2
 		# `~/.brew/Cellar/libxml2/2.9.7/bin/xml2-config --cflags --libs`
 endif
+
+
+
+
+
+LIB_GTK	= `pkg-config --libs gtk+-3.0`
+
+LIB_GTK_H =	`pkg-config --cflags gtk+-3.0`
+
+
 
 
 CC = clang
@@ -80,7 +90,7 @@ ifeq ($(OS), MACOS)
 	@make -C ./minilibx_macos --no-print-directory
 endif
 	@make -C ./libft --no-print-directory
-	@$(CC) $(OBJ) -o $@ $(LIB_FLAGS) $(LIBS)
+	@$(CC) $(OBJ) -o $@ $(LIB_FLAGS) $(LIBS) $(LIB_GTK)
 	@echo "$(GREEN)[$(NAME)] Compilation success"
 
 compilation_end: $(OBJ_NAME)

@@ -287,20 +287,20 @@ void	ft_loop(t_env env)
 		mlx_loop(env.init);
 }
 
-int		main(int argc, char **argv)
+int		mainsuite(/*int argc, char **argv*/)
 {
 	t_args	args;
 	t_env	env;
 	t_scene scene;
 	t_obj_lst *objs;
 
-	scene.path = argv[1];
+	scene.path = "scene/04_sphere_move.xml";
 	benchmark_total(0, NULL);
-	if (argc != 2)
-	{
-		ft_putstr("Usage: ./rtv1 docname\n");
-		return (0);
-	}
+	// if (argc != 2)
+	// {
+	// 	ft_putstr("Usage: ./rtv1 docname\n");
+	// 	return (0);
+	// }
 	benchmark(0, NULL);
 	init_args(&args, &env, &scene, scene.path);
 	objs = scene.objs;
@@ -323,4 +323,207 @@ int		main(int argc, char **argv)
 //	mlx_mouse_hook(env.win, &get_coord, (void*)&args);
 	mlx_loop(env.init);
 	return (0);
+}
+
+int		mainfileselect(char *file)
+{
+	t_args	args;
+	t_env	env;
+	t_scene scene;
+	t_obj_lst *objs;
+
+	file = ft_strstr(file, "scene");
+	// printf("%s\n", file);
+	scene.path = file;
+	// scene.path = "scene/04_sphere_move.xml";
+	// scene.path = "file:///Users/achambon/Desktop/42Projects/testUIRT/scene/04_sphere_move.xml";
+	benchmark_total(0, NULL);
+	// if (argc != 2)
+	// {
+	// 	ft_putstr("Usage: ./rtv1 docname\n");
+	// 	return (0);
+	// }
+	benchmark(0, NULL);
+	init_args(&args, &env, &scene, scene.path);
+	objs = scene.objs;
+	// add_texture(&scene);
+	benchmark(1, "init time");
+	benchmark(0, NULL);
+	manage_threads(&args);
+	//screenshot(env.img);
+	// if (manage_threads(&args) == FAILURE)
+		// trace_primary_rays(&args);
+	benchmark(1, "graphics calc time");
+	benchmark(0, NULL);
+	mlx_put_image_to_window(env.init, env.win, env.img->ptr, 0, 0);
+	benchmark(1, "display time");
+	benchmark_total(1, "total time");
+	mlx_hook(env.win, 17, 0L, &quit, &args);
+	mlx_mouse_hook(env.win, select_obj, &args);
+//	mlx_hook(env.win, KEY_PRESS, KEY_PRESS_MASK, &keypress, &args);
+	mlx_hook(env.win, 2, 0, hook, &args);
+//	mlx_mouse_hook(env.win, &get_coord, (void*)&args);
+	mlx_loop(env.init);
+	return (0);
+}
+
+gchar *file_selected(GtkFileChooser *file_btn)
+{
+    gchar *file_name;
+    GtkBuilder  *builder;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    gtk_builder_connect_signals(builder, NULL);
+    file_name = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(file_btn));
+    g_object_unref(builder); 
+    printf("%s\n", (char*)file_name);
+    mainfileselect((char*)file_name);
+    return (file_name);
+}
+
+int		main(int argc, char **argv)
+{
+//////////////
+
+	GtkBuilder      *builder; 
+    GtkWidget       *window;
+   	if (argc != 2)
+	{
+		ft_putstr("Usage: ./rtv1 docname\n");
+		return (0);
+	}
+    gtk_init(&argc, &argv);
+ 
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+ 
+    window = GTK_WIDGET(gtk_builder_get_object(builder, "main_menu"));
+    gtk_builder_connect_signals(builder, NULL);
+ 
+    g_object_unref(builder);
+ 
+    gtk_widget_show(window);                
+    gtk_main();
+
+/*main suite ici*/
+	return (0);
+}
+
+void on_window_main_destroy()
+{
+    gtk_main_quit();
+}
+
+void add_settingsmenu()
+{
+	GtkBuilder      *builder; 
+    GtkWidget       *win;
+ 
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+ 
+    win = GTK_WIDGET(gtk_builder_get_object(builder, "settings_menu"));
+    gtk_builder_connect_signals(builder, NULL);
+    g_object_unref(builder); 
+    gtk_widget_show(win);                
+    // gtk_main();
+    
+}
+
+
+void add_scenemenu()
+{
+    GtkBuilder      *builder; 
+    GtkWidget       *win;
+ 
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    win = GTK_WIDGET(gtk_builder_get_object(builder, "scene_menu"));
+    gtk_builder_connect_signals(builder, NULL);
+    g_object_unref(builder);
+    gtk_widget_show(win);                
+    // gtk_main();
+}
+
+void add_objectmenu()
+{
+    GtkBuilder      *builder; 
+    GtkWidget       *win;
+ 
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    win = GTK_WIDGET(gtk_builder_get_object(builder, "object_menu"));
+    gtk_builder_connect_signals(builder, NULL);
+    g_object_unref(builder); 
+    gtk_widget_show(win);                
+    // gtk_main();
+ 
+}
+
+// void    uistart_rt()
+// {
+//     system(rt_andscene);
+// }
+
+void    wheight_changed(GtkEntry *uiw_height)
+{
+    GtkBuilder  *builder;
+    const gchar *wheight;
+    t_uitest uitest;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    gtk_builder_connect_signals(builder, "uiw_height");
+    wheight = gtk_entry_get_text(GTK_ENTRY(uiw_height));
+    uitest.hauteur = atoi(wheight);
+    printf("%s\n", wheight);
+    printf("%d\n", uitest.hauteur);
+    g_object_unref(builder); 
+}
+
+void wwidth_changed(GtkEntry *uiw_width)
+{
+    GtkBuilder  *builder;
+    const gchar *wwidth;
+    t_uitest uitest;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    gtk_builder_connect_signals(builder, "uiw_width");
+    wwidth = gtk_entry_get_text(GTK_ENTRY(uiw_width));
+    uitest.largeur = atoi(wwidth);
+    printf("%s\n", wwidth);
+    printf("%d\n", uitest.largeur);
+    g_object_unref(builder); 
+}
+
+void pxlval_changed(GtkEntry *uipxl_val)
+{
+    GtkBuilder  *builder;
+    const gchar *pxlval;
+    t_uitest uitest;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    gtk_builder_connect_signals(builder, "uipxl_val");
+    pxlval = gtk_entry_get_text(GTK_ENTRY(uipxl_val));
+    uitest.pixilation = atoi(pxlval);
+    printf("%s\n", pxlval);
+    printf("%d\n", uitest.pixilation);
+    g_object_unref(builder); 
+}
+
+void apply_settings(t_uitest *uitest)
+{
+    GtkBuilder  *builder;
+
+    builder = gtk_builder_new();
+    gtk_builder_add_from_file (builder, "RT_menu.glade", NULL);
+    gtk_builder_connect_signals(builder, "appliquer_settings");
+    uitest->hauteur = 
+    printf("%d\n", uitest->hauteur);
+    // printf("%d\n", uitest.largeur);
+    // printf("%d\n", uitest.pixilation);
+    g_object_unref(builder);    
 }

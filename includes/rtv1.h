@@ -26,12 +26,13 @@
 # include <stdio.h> // to remove?
 # include <stdint.h>
 # include <pthread.h>
+# include <gtk/gtk.h>
 
 # define KEY_PRESS_MASK	(1L<<0)  
 # define KEY_PRESS 2
 
-# define TRUE 1
-# define FALSE 0
+# define TRUE (!FALSE)
+# define FALSE (0)
 # define SUCCESS 0
 # define FAILURE -1
 
@@ -446,4 +447,13 @@ t_vec3		specular_phong(t_inter *inter, t_light *light);
 /*
 **	Utility functions
 */
+
+typedef struct	s_uitest
+{
+	int	hauteur;
+	int largeur;
+	int pixilation;	
+	char	*str;
+}				t_uitest;
+
 #endif
